@@ -5,19 +5,19 @@ DAY_START = 0
 DAY_END = 24 * 60
 
 def load_data(filepath: str) -> dict:
-    with open(filepath, "r") as filepath:
+    with open(filepath, "r") as file:
         data = json.load(file)
-    return data
+        return data
 
-def get_outages(data: dict, suburb: str) -> list:
-   if suburb not in data:
+def get_outages(data: dict, suburb: str, date: str) -> list:
+    if suburb not in data:
         raise ValueError(f"Suburb {suburb} not found in data")
 
     resp = data.get(suburb, {}).get(date, [])
     return resp
 
 
-def calculate_safe_window(outages: list) -> list:
+def calculate_safe_windows(outages: list) -> list:
 
     safe_windows = []
     current_start = DAY_START
